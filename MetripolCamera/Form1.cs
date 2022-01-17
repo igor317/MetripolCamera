@@ -10,54 +10,53 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Runtime.InteropServices;
 
-using AForge.Video;
-using AForge.Video.DirectShow;
-
 namespace MetripolCamera
 {
     public partial class Form1 : Form
     {
-        FilterInfoCollection m_VideoDevices;
+        sDirectShowDevice[] m_DSDevices;
+        FolderBrowserDialog m_FBD;
         private ICameraDevice m_Camera;
 
         private void InitVideoDevices()
         {
-            m_VideoDevices = new FilterInfoCollection(FilterCategory.VideoInputDevice);
+            m_DSDevices = DirectShowCamera.GetDeviceList();
 
             m_CbDevices.Items.Clear();
 
-            if (m_VideoDevices.Count > 0)
+            if (m_DSDevices.Length > 0)
             {
-                foreach (FilterInfo it in m_VideoDevices)
+                foreach (var it in m_DSDevices)
                 {
                     m_CbDevices.Items.Add(it.Name);
                 }
 
                 m_CbDevices.SelectedIndex = 0;
 
-                m_Camera = new DirectShowCamera(m_VideoDevices[m_CbDevices.SelectedIndex].MonikerString);
+                m_Camera = new DirectShowCamera(m_DSDevices[m_CbDevices.SelectedIndex].MonikerString);
 
-                m_CbRes.Items.Clear();
+                m_CbVRes.Items.Clear();
                 foreach (sFramePrams fp in m_Camera.CameraParameters.VideoParams)
                 {
-                    m_CbRes.Items.Add(string.Format("{0}x{1}", fp.FrameSize.Width, fp.FrameSize.Height));
+                    m_CbVRes.Items.Add(string.Format("{0}x{1}", fp.FrameSize.Width, fp.FrameSize.Height));
                 }
 
-                m_CbRes.SelectedIndex = 0;
+                m_CbVRes.SelectedIndex = 0;
             }
         }
 
         public Form1()
         {
             InitializeComponent();
+            m_FBD = new FolderBrowserDialog();
             InitVideoDevices();
         }
 
         private void button1_Click(object sender, EventArgs e)
         {
             sInitCameraParams initParams = new sInitCameraParams();
-            initParams.VideoParams = m_Camera.CameraParameters.VideoParams[m_CbRes.SelectedIndex];
-            initParams.SnapshootParams = m_Camera.CameraParameters.SnapshootParams[m_CbRes.SelectedIndex];
+            initParams.VideoParams = m_Camera.CameraParameters.VideoParams[m_CbVRes.SelectedIndex];
+            initParams.SnapshootParams = m_Camera.CameraParameters.SnapshootParams[m_CbSnapRes.SelectedIndex];
             m_Camera.Init(initParams);
             m_Camera.Connect();
             timer1.Start();
@@ -65,7 +64,10 @@ namespace MetripolCamera
 
         private void button3_Click(object sender, EventArgs e)
         {
+            if (m_FBD.ShowDialog() == DialogResult.OK)
+            {
 
+            }
             //Bitmap pic = camera.MakePhoto();
             //pictureBox1.Image = pic;
             //label1.Text = Convert.ToString(GetMeadianColorValue(pic));
@@ -119,15 +121,22 @@ namespace MetripolCamera
 
         private void m_CbDevices_SelectedIndexChanged(object sender, EventArgs e)
         {
-            m_Camera = new DirectShowCamera(m_VideoDevices[m_CbDevices.SelectedIndex].MonikerString);
+            m_Camera = new DirectShowCamera(m_DSDevices[m_CbDevices.SelectedIndex].MonikerString);
 
-            m_CbRes.Items.Clear();
+            m_CbVRes.Items.Clear();
             foreach (sFramePrams fp in m_Camera.CameraParameters.VideoParams)
             {
-                m_CbRes.Items.Add(string.Format("{0}x{1}", fp.FrameSize.Width, fp.FrameSize.Height));
+                m_CbVRes.Items.Add(string.Format("{0}x{1}", fp.FrameSize.Width, fp.FrameSize.Height));
             }
 
-            m_CbRes.SelectedIndex = 0;
+            m_CbSnapRes.Items.Clear();
+            foreach (sFramePrams fp in m_Camera.CameraParameters.SnapshootParams)
+            {
+                m_CbSnapRes.Items.Add(string.Format("{0}x{1}", fp.FrameSize.Width, fp.FrameSize.Height));
+            }
+
+            m_CbVRes.SelectedIndex = 0;
+            m_CbSnapRes.SelectedIndex = 0;
         }
     }
 }

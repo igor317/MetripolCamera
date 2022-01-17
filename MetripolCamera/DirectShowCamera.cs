@@ -10,6 +10,12 @@ using AForge.Video.DirectShow;
 
 namespace MetripolCamera
 {
+    struct sDirectShowDevice
+    {
+        public string MonikerString;
+        public string Name;
+    }
+
     class DirectShowCamera : ICameraDevice
     {
         private sCameraParams m_Params;
@@ -119,6 +125,22 @@ namespace MetripolCamera
             }
             if (m_Snapshoot != null)
                 m_Snapshoot.Dispose();
+        }
+
+        public static sDirectShowDevice[] GetDeviceList()
+        {
+            FilterInfoCollection m_VideoDevices = new FilterInfoCollection(FilterCategory.VideoInputDevice);
+            if (m_VideoDevices.Count == 0)
+                return null;
+
+            sDirectShowDevice[] devices = new sDirectShowDevice[m_VideoDevices.Count];
+
+            for (int i = 0;i<devices.Length;++i)
+            {
+                devices[i].MonikerString = m_VideoDevices[i].MonikerString;
+                devices[i].Name = m_VideoDevices[i].Name;
+            }
+            return devices;
         }
     }
 

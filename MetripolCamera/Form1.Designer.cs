@@ -37,15 +37,17 @@
             this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.m_CbDevices = new System.Windows.Forms.ComboBox();
             this.m_LblDevName = new System.Windows.Forms.Label();
-            this.m_LblRes = new System.Windows.Forms.Label();
-            this.m_CbRes = new System.Windows.Forms.ComboBox();
+            this.m_LbVlRes = new System.Windows.Forms.Label();
+            this.m_CbVRes = new System.Windows.Forms.ComboBox();
             this.m_BtnUpdate = new System.Windows.Forms.Button();
+            this.m_LblSRes = new System.Windows.Forms.Label();
+            this.m_CbSnapRes = new System.Windows.Forms.ComboBox();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(649, 177);
+            this.button1.Location = new System.Drawing.Point(685, 231);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(75, 23);
             this.button1.TabIndex = 0;
@@ -55,7 +57,7 @@
             // 
             // button2
             // 
-            this.button2.Location = new System.Drawing.Point(649, 207);
+            this.button2.Location = new System.Drawing.Point(685, 261);
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(75, 23);
             this.button2.TabIndex = 1;
@@ -65,7 +67,7 @@
             // 
             // button3
             // 
-            this.button3.Location = new System.Drawing.Point(649, 282);
+            this.button3.Location = new System.Drawing.Point(685, 336);
             this.button3.Name = "button3";
             this.button3.Size = new System.Drawing.Size(75, 23);
             this.button3.TabIndex = 2;
@@ -114,22 +116,22 @@
             this.m_LblDevName.TabIndex = 6;
             this.m_LblDevName.Text = "Device";
             // 
-            // m_LblRes
+            // m_LbVlRes
             // 
-            this.m_LblRes.AutoSize = true;
-            this.m_LblRes.Location = new System.Drawing.Point(519, 99);
-            this.m_LblRes.Name = "m_LblRes";
-            this.m_LblRes.Size = new System.Drawing.Size(57, 13);
-            this.m_LblRes.TabIndex = 8;
-            this.m_LblRes.Text = "Resolution";
+            this.m_LbVlRes.AutoSize = true;
+            this.m_LbVlRes.Location = new System.Drawing.Point(519, 99);
+            this.m_LbVlRes.Name = "m_LbVlRes";
+            this.m_LbVlRes.Size = new System.Drawing.Size(87, 13);
+            this.m_LbVlRes.TabIndex = 8;
+            this.m_LbVlRes.Text = "Video Resolution";
             // 
-            // m_CbRes
+            // m_CbVRes
             // 
-            this.m_CbRes.FormattingEnabled = true;
-            this.m_CbRes.Location = new System.Drawing.Point(522, 115);
-            this.m_CbRes.Name = "m_CbRes";
-            this.m_CbRes.Size = new System.Drawing.Size(121, 21);
-            this.m_CbRes.TabIndex = 7;
+            this.m_CbVRes.FormattingEnabled = true;
+            this.m_CbVRes.Location = new System.Drawing.Point(522, 115);
+            this.m_CbVRes.Name = "m_CbVRes";
+            this.m_CbVRes.Size = new System.Drawing.Size(121, 21);
+            this.m_CbVRes.TabIndex = 7;
             // 
             // m_BtnUpdate
             // 
@@ -141,14 +143,33 @@
             this.m_BtnUpdate.UseVisualStyleBackColor = true;
             this.m_BtnUpdate.Click += new System.EventHandler(this.m_BtnUpdate_Click);
             // 
+            // m_LblSRes
+            // 
+            this.m_LblSRes.AutoSize = true;
+            this.m_LblSRes.Location = new System.Drawing.Point(519, 148);
+            this.m_LblSRes.Name = "m_LblSRes";
+            this.m_LblSRes.Size = new System.Drawing.Size(111, 13);
+            this.m_LblSRes.TabIndex = 11;
+            this.m_LblSRes.Text = "Snapshoot Resolution";
+            // 
+            // m_CbSnapRes
+            // 
+            this.m_CbSnapRes.FormattingEnabled = true;
+            this.m_CbSnapRes.Location = new System.Drawing.Point(522, 164);
+            this.m_CbSnapRes.Name = "m_CbSnapRes";
+            this.m_CbSnapRes.Size = new System.Drawing.Size(121, 21);
+            this.m_CbSnapRes.TabIndex = 10;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.m_LblSRes);
+            this.Controls.Add(this.m_CbSnapRes);
             this.Controls.Add(this.m_BtnUpdate);
-            this.Controls.Add(this.m_LblRes);
-            this.Controls.Add(this.m_CbRes);
+            this.Controls.Add(this.m_LbVlRes);
+            this.Controls.Add(this.m_CbVRes);
             this.Controls.Add(this.m_LblDevName);
             this.Controls.Add(this.m_CbDevices);
             this.Controls.Add(this.label1);
@@ -174,9 +195,11 @@
         private System.Windows.Forms.Timer timer1;
         private System.Windows.Forms.ComboBox m_CbDevices;
         private System.Windows.Forms.Label m_LblDevName;
-        private System.Windows.Forms.Label m_LblRes;
-        private System.Windows.Forms.ComboBox m_CbRes;
+        private System.Windows.Forms.Label m_LbVlRes;
+        private System.Windows.Forms.ComboBox m_CbVRes;
         private System.Windows.Forms.Button m_BtnUpdate;
+        private System.Windows.Forms.Label m_LblSRes;
+        private System.Windows.Forms.ComboBox m_CbSnapRes;
     }
 }
 
